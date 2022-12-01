@@ -11,7 +11,7 @@ class Car {
 
     insertCar(){
         this.imageInstance=new Image
-        this.imageInstance.src= 'images/car.png'
+        this.imageInstance.src= './images/car.png'
     }
 
     draw(){

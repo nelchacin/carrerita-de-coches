@@ -12,15 +12,28 @@ const carRaceApp = {
 
 
     startGame(canvasID) {
-        this.canvasNode = document.getElementById('canvas')
-        console.log('EL CONTEXTO:', this.ctx)
+        this.canvasNode = document.querySelector(`#${canvasID}`)
+        this.dimensionsGame()
         this.setEventListeners()
-        this.createBall()
+        this.drawCar()
+        this.begging()
+        this.drawImageRoad()
 
     },
-    createBall() {
-        this.car = new Car(this.ctx, 300, 300, 100, 100)
+    drawImageRoad(){
+        this.imageInstance=new Image()
+        this.imageInstance.src= "./images/road.png"
     },
+
+    dimensionsGame(){
+        this.gameSize={
+            w: 500,
+            h: 700,
+        }
+        this.canvasNode.setAttribute("width",this.gameSize.w)
+        this.canvasNode.setAttribute("height",this.gameSize.h)
+    },
+
     setEventListeners() {
         document.onkeydown = event => {
             const { key } = event
@@ -31,5 +44,25 @@ const carRaceApp = {
                 this.Car.moveRight()
             }
         }
+    },
+    drawCar(){
+        this.car =new Car(this.ctx,216,575,65,100)
+    },
+    drawAll(){
+        this.ctx.drawImage(this.imageInstance, 0, 0, this.gameSize.w, this.gameSize.h)
+        this.car.draw()
+        if (this.framesIndex % 15 === 0) this.createObstacle() 
+    },
+
+    clear(){
+        this.ctx.clearRect(0,0,this.gameSize.w, this.gameSize.h)
+    },
+
+    begging(){
+        setInterval(()=>{
+            this.clear()
+            this.drawAll()
+            this.framesIndex++
+        }, 30)
     }
 }

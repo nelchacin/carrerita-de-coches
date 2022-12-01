@@ -3,5 +3,4 @@ window.onload = () => {
     carRaceApp.startGame();
   };
 
-  function startGame() {}
 };
